@@ -5,11 +5,10 @@ import com.gustavo.entities.User;
 import com.gustavo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,5 +34,18 @@ public class UserController {
     public ResponseEntity<UserDTO> findById(@PathVariable String id) {
         UserDTO userDTO = new UserDTO(userService.findById(id));
         return ResponseEntity.ok().body(userDTO);
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> insert(@RequestBody UserDTO userDTO) {
+        User userObj = userService.fromDTO(userDTO);
+        userObj = userService.insert(userObj);
+
+        URI uri = ServletUriComponentsBuilder.
+                fromCurrentRequest().
+                path("/{id}").
+                buildAndExpand(userObj.getId()).
+                toUri();
+        return ResponseEntity.created(uri).build();
     }
 }
