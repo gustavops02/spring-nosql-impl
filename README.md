@@ -6,11 +6,15 @@ The domain model used were
 <img src="src/main/resources/images/diagram-uml.png" alt="Screenshot" width="700"/>
 
 
-The Post and Comment entities will be agregated, while the User entity will be separated.
 
-### Tools used
+
+## Tools used
 
 - `Java 17`
 - `Spring Framework`
 - `Mongo DB`
 
+## Features
+
+- Crud Manipulation (Create, Delete, Update and Read)
+- DTO pattern
