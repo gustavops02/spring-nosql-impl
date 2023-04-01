@@ -7,3 +7,10 @@ The domain model used were
 
 
 The Post and Comment entities will be agregated, while the User entity will be separated.
+
+### Tools used
+
+- `Java 17`
+- `Spring Framework`
+- `Mongo DB`
+
