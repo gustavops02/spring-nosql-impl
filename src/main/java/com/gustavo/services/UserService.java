@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 
@@ -37,8 +38,23 @@ public class UserService {
         findById(id);
         userRepository.deleteById(id);
     }
+    
+    public User update(User user) {
+    	User newObj = userRepository.findById(user.getId()).get();
+    	updateData(newObj, user);
+    	
+    	userRepository.save(newObj);
+    	return newObj;
+    	
+    }
 
-    public User fromDTO (UserDTO userDTO) {
+    private void updateData(User newObj, User user) {
+		newObj.setName(user.getName());
+		newObj.setEmail(user.getEmail());
+
+	}
+
+	public User fromDTO (UserDTO userDTO) {
         return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
     }
 
