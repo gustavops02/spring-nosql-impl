@@ -1,6 +1,6 @@
 package com.gustavo.controllers;
 
-import java.security.Provider.Service;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +34,22 @@ public class PostController {
 	public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text) {
 		text = URL.decode(text);
 		List<Post> list = postService.findByTitle(text);
+		return ResponseEntity.ok().body(list);
+	}
+	
+	@GetMapping("/fullsearch")
+	public ResponseEntity<List<Post>> findBetweenDates
+(			@RequestParam(value = "text", defaultValue = "") String text,
+			@RequestParam(value = "text", defaultValue = "") String minDate,
+			@RequestParam(value = "text", defaultValue = "") String maxDate
+			) {
+		
+		
+		text = URL.decode(text);
+		Date min = URL.convertDate(minDate, new Date(0L));
+		Date max = URL.convertDate(maxDate, new Date());
+		List<Post> list = postService.findTextBetweenDates(text, min, max);
+		
 		return ResponseEntity.ok().body(list);
 	}
 }
