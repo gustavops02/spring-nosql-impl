@@ -1,5 +1,7 @@
 package com.gustavo.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,11 @@ public class PostService {
 	
 	public Post findById(String id) {
 		return postRepository.findById(id).get();
+	}
+	
+	public List<Post> findByTitle(String txt) {
+		List<Post> posts = postRepository.findByTitleContainingIgnoreCase(txt);
+		return posts;
 	}
 
 }
